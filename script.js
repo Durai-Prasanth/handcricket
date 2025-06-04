@@ -169,7 +169,11 @@ function playMove(playerMove) {
         }, 2000);
     } else if (ballsRemaining <= 0 && gamePhase === 'cpu-batting') {
         setTimeout(() => {
-            endGame();
+            if (currentInnings === 1) {
+                endPlayerInnings(); // Go to second innings
+            } else {
+                endGame(); // End match after second innings
+            }
         }, 2000);
     }
 }
@@ -256,8 +260,10 @@ function endPlayerInnings() {
             }, 2500);
         }
     } else {
-        // End of second innings
-        endGame();
+        // End of second innings - game is complete
+        setTimeout(() => {
+            endGame();
+        }, 500);
     }
 }
 
@@ -270,11 +276,7 @@ function handleCPUBatting(playerMove, cpuMove) {
 
         setTimeout(() => {
             closeModal();
-            if (currentInnings === 1) {
-                endPlayerInnings(); // This will handle innings break
-            } else {
-                endGame();
-            }
+            endPlayerInnings(); // Always call endPlayerInnings for proper innings handling
         }, 2000);
     } else {
         // CPU scores
@@ -361,13 +363,13 @@ function endGame() {
     let finalPlayerScore, finalCpuScore;
 
     if (playerChoice === 'bat') {
-        // Player batted first
-        finalPlayerScore = firstInningsScore;
-        finalCpuScore = cpuScore;
+        // Player batted first, then CPU batted
+        finalPlayerScore = firstInningsScore; // Player's batting score from innings 1
+        finalCpuScore = cpuScore;             // CPU's batting score from innings 2
     } else {
-        // Player bowled first (CPU batted first)
-        finalPlayerScore = playerScore;
-        finalCpuScore = firstInningsScore;
+        // CPU batted first, then player batted
+        finalPlayerScore = playerScore;       // Player's batting score from innings 2
+        finalCpuScore = firstInningsScore;    // CPU's batting score from innings 1
     }
 
     if (finalPlayerScore > finalCpuScore) {
