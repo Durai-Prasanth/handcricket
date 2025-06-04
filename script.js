@@ -217,11 +217,12 @@ function handlePlayerBatting(playerMove, cpuMove) {
 function endPlayerInnings() {
     if (currentInnings === 1) {
         // End of first innings
-        firstInningsScore = playerScore;
-        currentInnings = 2;
-        
         if (playerChoice === 'bat') {
-            // Player batted first, now CPU bats
+            // Player batted first, store their score
+            firstInningsScore = playerScore;
+            currentInnings = 2;
+            
+            // Now CPU bats
             gamePhase = 'innings-break';
             showModal('🏏 Innings Break!', `First innings complete!`, `${playerName}: ${playerScore} runs. Now CPU will bat!`, 'hit');
             setTimeout(() => {
@@ -232,10 +233,15 @@ function endPlayerInnings() {
                 targetScore = playerScore + 1;
                 gamePhaseElement.textContent = `Innings 2: CPU needs ${targetScore} to win. You bowl!`;
                 lastMoveElement.textContent = 'Bowl to the CPU!';
+                enableButtons();
                 updateDisplay();
             }, 2500);
         } else {
-            // Player bowled first, now player bats
+            // Player bowled first, store CPU score
+            firstInningsScore = cpuScore;
+            currentInnings = 2;
+            
+            // Now player bats
             gamePhase = 'innings-break';
             showModal('🏏 Innings Break!', `First innings complete!`, `CPU: ${cpuScore} runs. Now ${playerName} will bat!`, 'hit');
             setTimeout(() => {
@@ -246,6 +252,7 @@ function endPlayerInnings() {
                 targetScore = cpuScore + 1;
                 gamePhaseElement.textContent = `Innings 2: ${playerName} needs ${targetScore} to win. Your turn to bat!`;
                 lastMoveElement.textContent = 'Bat to win!';
+                enableButtons();
                 updateDisplay();
             }, 2500);
         }
@@ -352,8 +359,17 @@ function endGame() {
     }
     
     // Determine winner based on final scores
-    const finalPlayerScore = currentInnings === 2 ? playerScore : firstInningsScore;
-    const finalCpuScore = currentInnings === 2 ? (playerChoice === 'bat' ? cpuScore : firstInningsScore) : cpuScore;
+    let finalPlayerScore, finalCpuScore;
+    
+    if (playerChoice === 'bat') {
+        // Player batted first
+        finalPlayerScore = firstInningsScore;
+        finalCpuScore = cpuScore;
+    } else {
+        // Player bowled first (CPU batted first)
+        finalPlayerScore = playerScore;
+        finalCpuScore = firstInningsScore;
+    }
     
     if (finalPlayerScore > finalCpuScore) {
         resultText.textContent = `🎉 ${playerName} Wins! ${playerName}: ${finalPlayerScore}, CPU: ${finalCpuScore}`;
