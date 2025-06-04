@@ -357,13 +357,13 @@ function endGame() {
     
     if (finalPlayerScore > finalCpuScore) {
         resultText.textContent = `🎉 ${playerName} Wins! ${playerName}: ${finalPlayerScore}, CPU: ${finalCpuScore}`;
-        gamePhaseElement.textContent = 'Congratulations! You won both innings!';
+        gamePhaseElement.textContent = `Congratulations! ${playerName} won the match!`;
         matchHistory.totalWins++;
         playSound(winSound);
     } else if (finalCpuScore > finalPlayerScore) {
         resultText.textContent = `🤖 CPU Wins! CPU: ${finalCpuScore}, ${playerName}: ${finalPlayerScore}`;
         gameResult.classList.add('loss');
-        gamePhaseElement.textContent = 'CPU won both innings!';
+        gamePhaseElement.textContent = 'CPU won the match!';
     } else {
         resultText.textContent = `🤝 It's a Draw! Both scored ${finalPlayerScore}`;
         gameResult.classList.add('draw');
