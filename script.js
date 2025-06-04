@@ -1,4 +1,3 @@
-
 // Game state variables
 let playerScore = 0;
 let cpuScore = 0;
@@ -39,15 +38,15 @@ const winSound = document.getElementById('winSound');
 function initGame() {
     loadMatchHistory();
     showScreen(1);
-    
+
     // Enable name submit button when name is entered
     const nameInput = document.getElementById('playerName');
     const submitBtn = document.getElementById('nameSubmitBtn');
-    
+
     nameInput.addEventListener('input', function() {
         submitBtn.disabled = this.value.trim().length === 0;
     });
-    
+
     // Allow Enter key to submit name
     nameInput.addEventListener('keypress', function(e) {
         if (e.key === 'Enter' && this.value.trim().length > 0) {
@@ -63,15 +62,15 @@ function showScreen(screenNumber) {
         const screen = document.getElementById(`screen${i}`);
         if (screen) screen.style.display = 'none';
     }
-    
+
     // Hide other elements
     gameResult.style.display = 'none';
     matchHistorySection.style.display = screenNumber === 1 ? 'block' : 'none';
-    
+
     // Show target screen
     const targetScreen = document.getElementById(`screen${screenNumber}`);
     if (targetScreen) targetScreen.style.display = 'block';
-    
+
     currentScreen = screenNumber;
     updateMatchHistoryDisplay();
 }
@@ -88,7 +87,7 @@ function goToScreen2() {
 // Handle toss (Screen 2 -> Screen 3 or 4)
 function handleToss(choice) {
     const coinResult = Math.random() > 0.5 ? 'heads' : 'tails';
-    
+
     // Show toss result with modal
     if (choice === coinResult) {
         // Player wins toss
@@ -123,12 +122,12 @@ function startGameplay() {
     ballsRemaining = 6;
     currentInnings = 1;
     firstInningsScore = 0;
-    
+
     showScreen(4);
-    
+
     // Update player name in score display
     document.getElementById('playerScoreTitle').innerHTML = `${playerName}: <span id="playerScore">0</span>`;
-    
+
     if (playerChoice === 'bat') {
         gamePhase = 'player-batting';
         gamePhaseElement.textContent = `Innings 1: ${playerName}, your turn to bat!`;
@@ -136,7 +135,7 @@ function startGameplay() {
         gamePhase = 'cpu-batting';
         gamePhaseElement.textContent = `Innings 1: ${playerName}, your turn to bowl! CPU is batting.`;
     }
-    
+
     updateDisplay();
     enableButtons();
     lastMoveElement.textContent = 'Choose a number to start first innings...';
@@ -151,18 +150,18 @@ function getCPUMove() {
 // Handle player move
 function playMove(playerMove) {
     if (gamePhase === 'game-over' || ballsRemaining <= 0) return;
-    
+
     const cpuMove = getCPUMove();
     ballsRemaining--;
-    
+
     if (gamePhase === 'player-batting') {
         handlePlayerBatting(playerMove, cpuMove);
     } else if (gamePhase === 'cpu-batting') {
         handleCPUBatting(playerMove, cpuMove);
     }
-    
+
     updateDisplay();
-    
+
     // Check if innings should end due to balls limit
     if (ballsRemaining <= 0 && gamePhase === 'player-batting') {
         setTimeout(() => {
@@ -181,7 +180,7 @@ function handlePlayerBatting(playerMove, cpuMove) {
         // Player is out
         playSound(outSound);
         showModal('❌ OUT!', `You played ${playerMove}, CPU bowled ${cpuMove}`, 'You\'re OUT!', 'out');
-        
+
         setTimeout(() => {
             closeModal();
             endPlayerInnings();
@@ -190,7 +189,7 @@ function handlePlayerBatting(playerMove, cpuMove) {
         // Player scores
         playSound(hitSound);
         playerScore += playerMove;
-        
+
         if (currentInnings === 2 && playerScore >= targetScore) {
             // Player wins in second innings
             showModal('🎉 YOU WIN!', `You played ${playerMove}, CPU bowled ${cpuMove}`, `You reached the target!`, 'hit');
@@ -200,7 +199,7 @@ function handlePlayerBatting(playerMove, cpuMove) {
             }, 2000);
         } else {
             showModal('🏏 RUNS!', `You played ${playerMove}, CPU bowled ${cpuMove}`, `Great shot! +${playerMove} runs`, 'hit');
-            
+
             setTimeout(() => {
                 if (currentInnings === 2) {
                     gamePhaseElement.textContent = `Innings 2: Good batting! You need ${Math.max(0, targetScore - playerScore)} more runs.`;
@@ -221,7 +220,7 @@ function endPlayerInnings() {
             // Player batted first, store their score
             firstInningsScore = playerScore;
             currentInnings = 2;
-            
+
             // Now CPU bats
             gamePhase = 'innings-break';
             showModal('🏏 Innings Break!', `First innings complete!`, `${playerName}: ${playerScore} runs. Now CPU will bat!`, 'hit');
@@ -240,7 +239,7 @@ function endPlayerInnings() {
             // Player bowled first, store CPU score
             firstInningsScore = cpuScore;
             currentInnings = 2;
-            
+
             // Now player bats
             gamePhase = 'innings-break';
             showModal('🏏 Innings Break!', `First innings complete!`, `CPU: ${cpuScore} runs. Now ${playerName} will bat!`, 'hit');
@@ -268,7 +267,7 @@ function handleCPUBatting(playerMove, cpuMove) {
         // CPU is out
         playSound(outSound);
         showModal('🎯 WICKET!', `You bowled ${playerMove}, CPU played ${cpuMove}`, 'CPU is OUT!', 'wicket');
-        
+
         setTimeout(() => {
             closeModal();
             if (currentInnings === 1) {
@@ -280,7 +279,7 @@ function handleCPUBatting(playerMove, cpuMove) {
     } else {
         // CPU scores
         cpuScore += cpuMove;
-        
+
         if (currentInnings === 2 && cpuScore >= targetScore) {
             // CPU wins in second innings
             playSound(outSound);
@@ -292,7 +291,7 @@ function handleCPUBatting(playerMove, cpuMove) {
         } else {
             playSound(hitSound);
             showModal('🤖 CPU SCORES!', `You bowled ${playerMove}, CPU played ${cpuMove}`, `CPU scored ${cpuMove} runs`, 'cpu-hit');
-            
+
             setTimeout(() => {
                 if (currentInnings === 2) {
                     gamePhaseElement.textContent = `Innings 2: CPU scored ${cpuMove}. CPU needs ${Math.max(0, targetScore - cpuScore)} more runs.`;
@@ -311,15 +310,15 @@ function showModal(title, message, description, type) {
     const modalTitle = document.getElementById('modalTitle');
     const modalMessage = document.getElementById('modalMessage');
     const moveAnimation = document.getElementById('moveAnimation');
-    
+
     modalTitle.textContent = title;
     modalMessage.textContent = description;
-    
+
     // Add animation based on type
     moveAnimation.className = 'move-animation ' + type;
-    
+
     modal.style.display = 'flex';
-    
+
     // Auto close after 2 seconds for non-critical modals
     if (type === 'hit' || type === 'cpu-hit') {
         setTimeout(() => {
@@ -344,23 +343,23 @@ function endGame() {
     disableButtons();
     gameResult.style.display = 'block';
     gamePhase = 'game-over';
-    
+
     // Remove previous result classes
     gameResult.classList.remove('loss', 'draw');
-    
+
     // Update match history
     matchHistory.totalMatches++;
-    
+
     // Update high score (use the player's batting score)
     const playerBattingScore = playerChoice === 'bat' ? firstInningsScore : playerScore;
     if (playerBattingScore > matchHistory.highScore) {
         matchHistory.highScore = playerBattingScore;
         matchHistory.highScorePlayer = playerName;
     }
-    
+
     // Determine winner based on final scores
     let finalPlayerScore, finalCpuScore;
-    
+
     if (playerChoice === 'bat') {
         // Player batted first
         finalPlayerScore = firstInningsScore;
@@ -370,7 +369,7 @@ function endGame() {
         finalPlayerScore = playerScore;
         finalCpuScore = firstInningsScore;
     }
-    
+
     if (finalPlayerScore > finalCpuScore) {
         resultText.textContent = `🎉 ${playerName} Wins! ${playerName}: ${finalPlayerScore}, CPU: ${finalCpuScore}`;
         gamePhaseElement.textContent = `Congratulations! ${playerName} won the match!`;
@@ -386,7 +385,7 @@ function endGame() {
         gamePhaseElement.textContent = 'What a match! It\'s a perfect tie!';
         matchHistory.totalWins += 0.5;
     }
-    
+
     saveMatchHistory();
 }
 
@@ -395,7 +394,7 @@ function updateDisplay() {
     const playerScoreEl = document.getElementById('playerScore');
     const cpuScoreEl = document.getElementById('cpuScore');
     const ballsEl = document.getElementById('ballsRemaining');
-    
+
     if (playerScoreEl) playerScoreEl.textContent = playerScore;
     if (cpuScoreEl) cpuScoreEl.textContent = cpuScore;
     if (ballsEl) ballsEl.textContent = ballsRemaining;
@@ -428,14 +427,14 @@ function restartGame() {
     currentInnings = 1;
     firstInningsScore = 0;
     playerChoice = '';
-    
+
     // Hide game result and show name screen
     gameResult.style.display = 'none';
-    
+
     // Reset form
     document.getElementById('playerName').value = '';
     document.getElementById('nameSubmitBtn').disabled = true;
-    
+
     // Show first screen
     showScreen(1);
 }
@@ -457,7 +456,7 @@ function updateMatchHistoryDisplay() {
     const totalWinsEl = document.getElementById('totalWins');
     const highScoreEl = document.getElementById('highScore');
     const highScorePlayerEl = document.getElementById('highScorePlayer');
-    
+
     if (totalMatchesEl) totalMatchesEl.textContent = matchHistory.totalMatches;
     if (totalWinsEl) totalWinsEl.textContent = Math.floor(matchHistory.totalWins);
     if (highScoreEl) highScoreEl.textContent = matchHistory.highScore;
