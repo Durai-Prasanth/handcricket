@@ -1,16 +1,58 @@
+
 <!DOCTYPE html>
 <html>
-
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
-  <title>replit</title>
+  <title>Hand Cricket Game</title>
   <link href="style.css" rel="stylesheet" type="text/css" />
 </head>
-
 <body>
-  Hello world
+  <div class="game-container">
+    <h1>🏏 Hand Cricket Game</h1>
+    
+    <div class="game-info">
+      <div class="scores">
+        <div class="player-score">
+          <h3>Your Score: <span id="playerScore">0</span></h3>
+        </div>
+        <div class="cpu-score">
+          <h3>CPU Score: <span id="cpuScore">0</span></h3>
+        </div>
+      </div>
+      
+      <div class="game-status">
+        <p id="gamePhase">Your turn to bat!</p>
+        <p id="lastMove"></p>
+      </div>
+    </div>
+
+    <div class="number-buttons" id="numberButtons">
+      <button class="number-btn" onclick="playMove(1)">1</button>
+      <button class="number-btn" onclick="playMove(2)">2</button>
+      <button class="number-btn" onclick="playMove(3)">3</button>
+      <button class="number-btn" onclick="playMove(4)">4</button>
+      <button class="number-btn" onclick="playMove(5)">5</button>
+      <button class="number-btn" onclick="playMove(6)">6</button>
+    </div>
+
+    <div class="game-result" id="gameResult" style="display: none;">
+      <h2 id="resultText"></h2>
+      <button class="restart-btn" onclick="restartGame()">Play Again</button>
+    </div>
+
+    <div class="instructions">
+      <h4>How to Play:</h4>
+      <ul>
+        <li>Choose a number between 1-6</li>
+        <li>If you and CPU pick the same number, you're OUT!</li>
+        <li>Otherwise, your number is added to your score</li>
+        <li>After you're out, CPU bats to beat your score</li>
+        <li>Highest score wins!</li>
+      </ul>
+    </div>
+  </div>
+
   <script src="script.js"></script>
 </body>
-
 </html>

@@ -1,4 +1,199 @@
-html {
-  height: 100%;
-  width: 100%;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #333;
+}
+
+.game-container {
+  background: white;
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+  max-width: 600px;
+  width: 90%;
+  text-align: center;
+}
+
+h1 {
+  color: #667eea;
+  margin-bottom: 30px;
+  font-size: 2.5em;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+.game-info {
+  margin-bottom: 30px;
+}
+
+.scores {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.player-score, .cpu-score {
+  background: #f8f9ff;
+  padding: 15px;
+  border-radius: 10px;
+  border: 2px solid #667eea;
+  flex: 1;
+  margin: 0 10px;
+}
+
+.player-score h3 {
+  color: #28a745;
+}
+
+.cpu-score h3 {
+  color: #dc3545;
+}
+
+.game-status {
+  background: #fff3cd;
+  padding: 15px;
+  border-radius: 10px;
+  border-left: 4px solid #ffc107;
+}
+
+#gamePhase {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+#lastMove {
+  font-style: italic;
+  color: #666;
+}
+
+.number-buttons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin: 30px 0;
+}
+
+.number-btn {
+  background: linear-gradient(45deg, #667eea, #764ba2);
+  color: white;
+  border: none;
+  padding: 20px;
+  border-radius: 15px;
+  font-size: 2em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.number-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+}
+
+.number-btn:active {
+  transform: translateY(0);
+}
+
+.number-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.game-result {
+  background: #d4edda;
+  border: 2px solid #28a745;
+  border-radius: 15px;
+  padding: 30px;
+  margin: 20px 0;
+}
+
+.game-result.loss {
+  background: #f8d7da;
+  border-color: #dc3545;
+}
+
+.game-result.draw {
+  background: #fff3cd;
+  border-color: #ffc107;
+}
+
+#resultText {
+  margin-bottom: 20px;
+  font-size: 1.5em;
+}
+
+.restart-btn {
+  background: linear-gradient(45deg, #28a745, #20c997);
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 25px;
+  font-size: 1.2em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.restart-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(40, 167, 69, 0.4);
+}
+
+.instructions {
+  background: #f8f9ff;
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 20px;
+  text-align: left;
+}
+
+.instructions h4 {
+  color: #667eea;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.instructions ul {
+  list-style-position: inside;
+  color: #666;
+}
+
+.instructions li {
+  margin-bottom: 5px;
+}
+
+@media (max-width: 600px) {
+  .game-container {
+    padding: 20px;
+  }
+  
+  h1 {
+    font-size: 2em;
+  }
+  
+  .scores {
+    flex-direction: column;
+  }
+  
+  .player-score, .cpu-score {
+    margin: 5px 0;
+  }
+  
+  .number-buttons {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
