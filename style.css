@@ -59,6 +59,16 @@ h1 {
   color: #dc3545;
 }
 
+.balls-info {
+  background: #e7f3ff;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  border: 2px solid #007bff;
+  font-weight: bold;
+  color: #007bff;
+}
+
 .game-status {
   background: #fff3cd;
   padding: 15px;
@@ -82,6 +92,10 @@ h1 {
   grid-template-columns: repeat(3, 1fr);
   gap: 15px;
   margin: 30px 0;
+}
+
+.number-buttons .number-btn:last-child {
+  grid-column: 2;
 }
 
 .number-btn {
@@ -176,8 +190,8 @@ h1 {
   margin-bottom: 5px;
 }
 
-/* Player Setup Styles */
-.player-setup {
+/* Screen Styles */
+.screen {
   background: #f8f9ff;
   border-radius: 15px;
   padding: 25px;
@@ -203,12 +217,38 @@ h1 {
   border-radius: 8px;
   font-size: 1.1em;
   text-align: center;
+  margin-bottom: 15px;
 }
 
 .name-input input:focus {
   outline: none;
   border-color: #667eea;
   box-shadow: 0 0 10px rgba(102, 126, 234, 0.3);
+}
+
+.submit-btn {
+  background: linear-gradient(45deg, #667eea, #764ba2);
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 25px;
+  font-size: 1.2em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.submit-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.submit-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
 /* Toss Section */

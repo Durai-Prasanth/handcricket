@@ -11,57 +11,64 @@
   <div class="game-container">
     <h1>🏏 Hand Cricket Game</h1>
     
-    <!-- Player Setup Section -->
-    <div class="player-setup" id="playerSetup">
+    <!-- Screen 1: Player Name -->
+    <div class="screen" id="screen1">
       <div class="name-input">
         <label for="playerName">Enter Your Name:</label>
         <input type="text" id="playerName" placeholder="Your Name" maxlength="15">
-      </div>
-      
-      <div class="toss-section" id="tossSection" style="display: none;">
-        <h3>🪙 Toss Time!</h3>
-        <p>Choose Heads or Tails:</p>
-        <div class="toss-buttons">
-          <button class="toss-btn" onclick="handleToss('heads')">Heads</button>
-          <button class="toss-btn" onclick="handleToss('tails')">Tails</button>
-        </div>
-        <p id="tossResult"></p>
-      </div>
-      
-      <div class="choice-section" id="choiceSection" style="display: none;">
-        <h3 id="choiceTitle">You won the toss! Choose:</h3>
-        <div class="choice-buttons">
-          <button class="choice-btn" onclick="makeChoice('bat')">🏏 Bat First</button>
-          <button class="choice-btn" onclick="makeChoice('bowl')">⚾ Bowl First</button>
-        </div>
-      </div>
-      
-      <button class="start-btn" onclick="startGame()" style="display: none;" id="startGameBtn">Start Game</button>
-    </div>
-    
-    <div class="game-info" id="gameInfo" style="display: none;">
-      <div class="scores">
-        <div class="player-score">
-          <h3>Your Score: <span id="playerScore">0</span></h3>
-        </div>
-        <div class="cpu-score">
-          <h3>CPU Score: <span id="cpuScore">0</span></h3>
-        </div>
-      </div>
-      
-      <div class="game-status">
-        <p id="gamePhase">Your turn to bat!</p>
-        <p id="lastMove"></p>
+        <button class="submit-btn" onclick="goToScreen2()" id="nameSubmitBtn" disabled>Submit</button>
       </div>
     </div>
 
+    <!-- Screen 2: Toss -->
+    <div class="screen" id="screen2" style="display: none;">
+      <h3>🪙 Toss Time!</h3>
+      <p id="tossPlayerName">Choose Heads or Tails:</p>
+      <div class="toss-buttons">
+        <button class="toss-btn" onclick="handleToss('heads')">Heads</button>
+        <button class="toss-btn" onclick="handleToss('tails')">Tails</button>
+      </div>
+    </div>
+
+    <!-- Screen 3: Choice (if player wins toss) -->
+    <div class="screen" id="screen3" style="display: none;">
+      <h3 id="choiceTitle">You won the toss! Choose:</h3>
+      <div class="choice-buttons">
+        <button class="choice-btn" onclick="makeChoice('bat')">🏏 Bat First</button>
+        <button class="choice-btn" onclick="makeChoice('bowl')">⚾ Bowl First</button>
+      </div>
+    </div>
+
+    <!-- Screen 4: Game Playing -->
+    <div class="screen" id="screen4" style="display: none;">
+    
+    <div class="game-info" id="gameInfo">
+        <div class="scores">
+          <div class="player-score">
+            <h3 id="playerScoreTitle">Your Score: <span id="playerScore">0</span></h3>
+          </div>
+          <div class="cpu-score">
+            <h3>CPU Score: <span id="cpuScore">0</span></h3>
+          </div>
+        </div>
+        
+        <div class="balls-info">
+          <p>Balls Remaining: <span id="ballsRemaining">6</span>/6</p>
+        </div>
+        
+        <div class="game-status">
+          <p id="gamePhase">Your turn to bat!</p>
+          <p id="lastMove"></p>
+        </div>
+      </div>
+
     <div class="number-buttons" id="numberButtons">
-      <button class="number-btn" onclick="playMove(1)">1</button>
-      <button class="number-btn" onclick="playMove(2)">2</button>
-      <button class="number-btn" onclick="playMove(3)">3</button>
-      <button class="number-btn" onclick="playMove(4)">4</button>
-      <button class="number-btn" onclick="playMove(5)">5</button>
-      <button class="number-btn" onclick="playMove(6)">6</button>
+        <button class="number-btn" onclick="playMove(1)">1</button>
+        <button class="number-btn" onclick="playMove(2)">2</button>
+        <button class="number-btn" onclick="playMove(3)">3</button>
+        <button class="number-btn" onclick="playMove(4)">4</button>
+        <button class="number-btn" onclick="playMove(6)">6</button>
+      </div>
     </div>
 
     <div class="game-result" id="gameResult" style="display: none;">
@@ -83,6 +90,7 @@
         <div class="stat-item">
           <span>High Score:</span>
           <span id="highScore">0</span>
+          <span id="highScorePlayer" style="font-size: 0.8em; color: #666;"></span>
         </div>
       </div>
     </div>
