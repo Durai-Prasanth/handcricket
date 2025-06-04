@@ -176,6 +176,308 @@ h1 {
   margin-bottom: 5px;
 }
 
+/* Player Setup Styles */
+.player-setup {
+  background: #f8f9ff;
+  border-radius: 15px;
+  padding: 25px;
+  margin-bottom: 20px;
+  border: 2px solid #667eea;
+}
+
+.name-input {
+  margin-bottom: 20px;
+}
+
+.name-input label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #667eea;
+}
+
+.name-input input {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 1.1em;
+  text-align: center;
+}
+
+.name-input input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 10px rgba(102, 126, 234, 0.3);
+}
+
+/* Toss Section */
+.toss-section {
+  margin: 20px 0;
+  padding: 20px;
+  background: #fff3cd;
+  border-radius: 10px;
+  border: 2px solid #ffc107;
+}
+
+.toss-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin: 15px 0;
+}
+
+.toss-btn {
+  background: linear-gradient(45deg, #ffc107, #ffca2c);
+  color: #333;
+  border: none;
+  padding: 15px 25px;
+  border-radius: 25px;
+  font-size: 1.1em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.toss-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(255, 193, 7, 0.4);
+}
+
+/* Choice Section */
+.choice-section {
+  margin: 20px 0;
+  padding: 20px;
+  background: #d1ecf1;
+  border-radius: 10px;
+  border: 2px solid #17a2b8;
+}
+
+.choice-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin: 15px 0;
+}
+
+.choice-btn {
+  background: linear-gradient(45deg, #17a2b8, #20c997);
+  color: white;
+  border: none;
+  padding: 15px 20px;
+  border-radius: 15px;
+  font-size: 1.1em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.choice-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(23, 162, 184, 0.4);
+}
+
+.start-btn {
+  background: linear-gradient(45deg, #28a745, #20c997);
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 25px;
+  font-size: 1.3em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 20px;
+}
+
+.start-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+}
+
+/* Match History */
+.match-history {
+  background: #e7f3ff;
+  border-radius: 15px;
+  padding: 20px;
+  margin-bottom: 20px;
+  border: 2px solid #007bff;
+}
+
+.match-history h4 {
+  color: #007bff;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+
+.stat-item {
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.stat-item span:first-child {
+  display: block;
+  font-size: 0.9em;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+.stat-item span:last-child {
+  display: block;
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #007bff;
+}
+
+/* Modal Styles */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.7);
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 20px;
+  padding: 30px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  animation: slideIn 0.3s ease;
+}
+
+.modal-header h3 {
+  font-size: 2em;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.modal-body {
+  margin: 20px 0;
+}
+
+.move-animation {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5em;
+  animation: bounce 0.6s ease-in-out;
+}
+
+.move-animation.hit {
+  background: linear-gradient(45deg, #28a745, #20c997);
+  color: white;
+}
+
+.move-animation.hit::before {
+  content: '🏏';
+}
+
+.move-animation.out {
+  background: linear-gradient(45deg, #dc3545, #e74c3c);
+  color: white;
+}
+
+.move-animation.out::before {
+  content: '❌';
+}
+
+.move-animation.wicket {
+  background: linear-gradient(45deg, #ffc107, #ffca2c);
+  color: #333;
+}
+
+.move-animation.wicket::before {
+  content: '🎯';
+}
+
+.move-animation.cpu-hit {
+  background: linear-gradient(45deg, #6c757d, #868e96);
+  color: white;
+}
+
+.move-animation.cpu-hit::before {
+  content: '🤖';
+}
+
+.move-animation.loss {
+  background: linear-gradient(45deg, #dc3545, #e74c3c);
+  color: white;
+}
+
+.move-animation.loss::before {
+  content: '😔';
+}
+
+.modal-close {
+  background: linear-gradient(45deg, #667eea, #764ba2);
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 25px;
+  font-size: 1.1em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 15px;
+}
+
+.modal-close:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from { 
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounce {
+  0%, 20%, 60%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-20px);
+  }
+  80% {
+    transform: translateY(-10px);
+  }
+}
+
 @media (max-width: 600px) {
   .game-container {
     padding: 20px;
@@ -195,5 +497,20 @@ h1 {
   
   .number-buttons {
     grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .stats {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  
+  .choice-buttons, .toss-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .modal-content {
+    padding: 20px;
+    margin: 20px;
   }
 }

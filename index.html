@@ -11,7 +11,35 @@
   <div class="game-container">
     <h1>🏏 Hand Cricket Game</h1>
     
-    <div class="game-info">
+    <!-- Player Setup Section -->
+    <div class="player-setup" id="playerSetup">
+      <div class="name-input">
+        <label for="playerName">Enter Your Name:</label>
+        <input type="text" id="playerName" placeholder="Your Name" maxlength="15">
+      </div>
+      
+      <div class="toss-section" id="tossSection" style="display: none;">
+        <h3>🪙 Toss Time!</h3>
+        <p>Choose Heads or Tails:</p>
+        <div class="toss-buttons">
+          <button class="toss-btn" onclick="handleToss('heads')">Heads</button>
+          <button class="toss-btn" onclick="handleToss('tails')">Tails</button>
+        </div>
+        <p id="tossResult"></p>
+      </div>
+      
+      <div class="choice-section" id="choiceSection" style="display: none;">
+        <h3 id="choiceTitle">You won the toss! Choose:</h3>
+        <div class="choice-buttons">
+          <button class="choice-btn" onclick="makeChoice('bat')">🏏 Bat First</button>
+          <button class="choice-btn" onclick="makeChoice('bowl')">⚾ Bowl First</button>
+        </div>
+      </div>
+      
+      <button class="start-btn" onclick="startGame()" style="display: none;" id="startGameBtn">Start Game</button>
+    </div>
+    
+    <div class="game-info" id="gameInfo" style="display: none;">
       <div class="scores">
         <div class="player-score">
           <h3>Your Score: <span id="playerScore">0</span></h3>
@@ -41,6 +69,24 @@
       <button class="restart-btn" onclick="restartGame()">Play Again</button>
     </div>
 
+    <div class="match-history" id="matchHistory" style="display: none;">
+      <h4>📊 Match History</h4>
+      <div class="stats">
+        <div class="stat-item">
+          <span>Matches Played:</span>
+          <span id="totalMatches">0</span>
+        </div>
+        <div class="stat-item">
+          <span>Wins:</span>
+          <span id="totalWins">0</span>
+        </div>
+        <div class="stat-item">
+          <span>High Score:</span>
+          <span id="highScore">0</span>
+        </div>
+      </div>
+    </div>
+
     <div class="instructions">
       <h4>How to Play:</h4>
       <ul>
@@ -51,6 +97,35 @@
         <li>Highest score wins!</li>
       </ul>
     </div>
+  </div>
+
+  <!-- Modal for move results -->
+  <div class="modal" id="moveModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modalTitle"></h3>
+      </div>
+      <div class="modal-body">
+        <div class="move-animation" id="moveAnimation"></div>
+        <p id="modalMessage"></p>
+      </div>
+      <button class="modal-close" onclick="closeModal()">Continue</button>
+    </div>
+  </div>
+
+  <!-- Audio elements -->
+  <audio id="hitSound" preload="auto">
+    <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEbBjiKwOjc" type="audio/wav">
+  </audio>
+  
+  <audio id="outSound" preload="auto">
+    <source src="data:audio/wav;base64,UklGRuQEAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YcAEAABkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRk" type="audio/wav">
+  </audio>
+  
+  <audio id="winSound" preload="auto">
+    <source src="data:audio/wav;base64,UklGRvIEAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0Yc4EAADmEQSEewsF5hEEhHsLBeYRBIR7CwXmEQSEewsF5hEEhHsLBeYRBIR7CwXmEQSEewsF5hEEhHsLBeYRBIR7CwXmEQSEewsF5hEEhHsLBeYRBIR7CwXmEQSEewsF5hEEhHsLBeYRBIR7CwXmEQSEewsF5hEEhHsLBeYRBIR7CwXmEQSEewsF5hEEhHsLBeYRBIR7CwXmEQSEewsF5hEEhHsLBeYRBIR7CwXmEQSEewsF5hEEhHsLBeYRBIR7CwXmEQSEewsF5hEEhHsLBeYRBIR7CwXmEQSEewsF5hEEhHsLBeYRBIR7CwXmEQSEewsF5hEEhHsLBeYRBIR7CwXmEQSEewsF5hEEhHsLBeYRBIR7CwXmEQSEewsF5hEEhHsLBeYRBIR7CwXmEQSEewsF5hEEhHsLBeYRBIR7CwXmEQSEewsF5hEEhHsLBeYRBIR7CwXmEQSEewsF5hEEhHsLBeYRBIR7CwXmEQSEewsF5hEEhHsLBeYRBIR7CwXmEQSEewsF5hEEhHsLBeYRBIR7CwXmEQSEewsF5hEEhHsLBeYRBIR7CwXmEQSEewsF5hEEhHsLBeYRBIR7CwXmEQSEewsF5hEEhHsLBeYRBIR7CwXmEQSEewsF5hEEhHsLBQ==" type="audio/wav">
+  </audio>
+  
   </div>
 
   <script src="script.js"></script>
