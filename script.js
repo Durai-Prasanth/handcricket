@@ -344,16 +344,16 @@ function endGame() {
     // Update match history
     matchHistory.totalMatches++;
     
-    // Update high score (use the higher of player's two innings scores if applicable)
-    const playerFinalScore = playerChoice === 'bat' ? firstInningsScore : playerScore;
-    if (playerFinalScore > matchHistory.highScore) {
-        matchHistory.highScore = playerFinalScore;
+    // Update high score (use the player's batting score)
+    const playerBattingScore = playerChoice === 'bat' ? firstInningsScore : playerScore;
+    if (playerBattingScore > matchHistory.highScore) {
+        matchHistory.highScore = playerBattingScore;
         matchHistory.highScorePlayer = playerName;
     }
     
     // Determine winner based on final scores
-    const finalPlayerScore = playerChoice === 'bat' ? firstInningsScore : playerScore;
-    const finalCpuScore = playerChoice === 'bat' ? cpuScore : firstInningsScore;
+    const finalPlayerScore = currentInnings === 2 ? playerScore : firstInningsScore;
+    const finalCpuScore = currentInnings === 2 ? (playerChoice === 'bat' ? cpuScore : firstInningsScore) : cpuScore;
     
     if (finalPlayerScore > finalCpuScore) {
         resultText.textContent = `🎉 ${playerName} Wins! ${playerName}: ${finalPlayerScore}, CPU: ${finalCpuScore}`;
