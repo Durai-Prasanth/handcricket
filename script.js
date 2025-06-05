@@ -469,12 +469,12 @@ function loadMatchHistory() {
       })
       .then(summary => {
         matchHistory = summary;
-        console.log('Match history set:', matchHistory);
+        //console.log('Match history set:', matchHistory);
         updateMatchHistoryDisplay();
         return summary;
       })
       .catch(err => {
-        console.error('Error loading match history:', err);
+        //console.error('Error loading match history:', err);
       });
   }
 
@@ -487,7 +487,7 @@ function saveMatchHistory() {
         body: JSON.stringify(matchHistory),
     });
     const data = res.json();
-    console.log('Updated Match Summary:', data);
+    //console.log('Updated Match Summary:', data);
     return data;
 }
 // ----------------BackEnd Update--------------------
