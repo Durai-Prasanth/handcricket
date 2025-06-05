@@ -79,7 +79,7 @@ function showScreen(screenNumber) {
 function goToScreen2() {
     playerName = document.getElementById('playerName').value.trim();
     if (playerName) {
-        document.getElementById('tossPlayerName').textContent = `${playerName}, Choose Heads or Tails:`;
+        document.getElementById('tossPlayerName').textContent = `Welcome ${playerName}, Choose Heads or Tails:`;
         showScreen(2);
     }
 }
