@@ -34,10 +34,15 @@ const hitSound = document.getElementById('hitSound');
 const outSound = document.getElementById('outSound');
 const winSound = document.getElementById('winSound');
 
+// BackEnd URL
+// const BASE_URL = 'https://hand-cricket-backend.onrender.com';
+const BASE_URL = 'http://localhost:3000';
+
 // Initialize game
 function initGame() {
-    loadMatchHistory();
-    showScreen(1);
+    loadMatchHistory().then(() => {
+        showScreen(1);
+      });
 
     // Enable name submit button when name is entered
     const nameInput = document.getElementById('playerName');
@@ -57,6 +62,7 @@ function initGame() {
 
 // Show specific screen
 function showScreen(screenNumber) {
+    debugger
     // Hide all screens
     for (let i = 1; i <= 4; i++) {
         const screen = document.getElementById(`screen${i}`);
@@ -442,18 +448,52 @@ function restartGame() {
 }
 
 // Match history functions
-function saveMatchHistory() {
-    localStorage.setItem('handCricketHistory', JSON.stringify(matchHistory));
-}
+// function saveMatchHistory() {
+//     localStorage.setItem('handCricketHistory', JSON.stringify(matchHistory));
+// }
 
+// function loadMatchHistory() {
+//     const saved = localStorage.getItem('handCricketHistory');
+//     if (saved) {
+//         matchHistory = JSON.parse(saved);
+//     }
+// }
+
+// ----------------BackEnd Update--------------------
+// Get match summary
 function loadMatchHistory() {
-    const saved = localStorage.getItem('handCricketHistory');
-    if (saved) {
-        matchHistory = JSON.parse(saved);
-    }
+    return fetch(`${BASE_URL}/match-summary`)
+      .then(res => {
+        if (!res.ok) throw new Error(`Fetch failed: ${res.status}`);
+        return res.json();
+      })
+      .then(summary => {
+        matchHistory = summary;
+        console.log('Match history set:', matchHistory);
+        updateMatchHistoryDisplay();
+        return summary;
+      })
+      .catch(err => {
+        console.error('Error loading match history:', err);
+      });
+  }
+
+
+// Update match summary
+function saveMatchHistory() {
+    const res = fetch(`${BASE_URL}/match-summary`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(matchHistory),
+    });
+    const data = res.json();
+    console.log('Updated Match Summary:', data);
+    return data;
 }
+// ----------------BackEnd Update--------------------
 
 function updateMatchHistoryDisplay() {
+    debugger
     const totalMatchesEl = document.getElementById('totalMatches');
     const totalWinsEl = document.getElementById('totalWins');
     const highScoreEl = document.getElementById('highScore');
@@ -478,6 +518,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
 
 // Initialize game on page load
 window.addEventListener('load', initGame);
