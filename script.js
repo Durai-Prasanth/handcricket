@@ -461,7 +461,6 @@ function restartGame() {
 // ----------------BackEnd Update--------------------
 // Get match summary
 function loadMatchHistory() {
-    debugger
     return fetch(`${BASE_URL}/match-summary`)
       .then(res => {
         if (!res.ok) throw new Error(`Fetch failed: ${res.status}`);
