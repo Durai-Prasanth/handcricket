@@ -62,7 +62,6 @@ function initGame() {
 
 // Show specific screen
 function showScreen(screenNumber) {
-    debugger
     // Hide all screens
     for (let i = 1; i <= 4; i++) {
         const screen = document.getElementById(`screen${i}`);
@@ -462,6 +461,7 @@ function restartGame() {
 // ----------------BackEnd Update--------------------
 // Get match summary
 function loadMatchHistory() {
+    debugger
     return fetch(`${BASE_URL}/match-summary`)
       .then(res => {
         if (!res.ok) throw new Error(`Fetch failed: ${res.status}`);
@@ -493,7 +493,6 @@ function saveMatchHistory() {
 // ----------------BackEnd Update--------------------
 
 function updateMatchHistoryDisplay() {
-    debugger
     const totalMatchesEl = document.getElementById('totalMatches');
     const totalWinsEl = document.getElementById('totalWins');
     const highScoreEl = document.getElementById('highScore');
