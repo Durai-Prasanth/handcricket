@@ -36,7 +36,7 @@ const winSound = document.getElementById('winSound');
 
 // BackEnd URL
 // const BASE_URL = 'https://hand-cricket-backend.onrender.com';
-const BASE_URL = 'http://localhost:3000';
+const BASE_URL = 'https://handcricket-eh57.onrender.com/';
 
 // Initialize game
 function initGame() {
